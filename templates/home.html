@@ -1,0 +1,65 @@
+{% extends "main.html" %}
+{% block content %}
+
+
+
+    <div>
+        <form method="post">
+              {% csrf_token %} 
+              <div class="form-group">
+                {{ form.name }}
+            </div>
+        
+              
+              <button type="submit">Submit</button>
+        </form>
+    </div>
+          <!-- list of students  -->
+          <div>
+              <h4 class="text-center mb-3 mt-3">todo List</h4>
+              <div class="table-responsive-sm">
+                  <table class="table table-hover">
+                      <thead class="thead-light">
+                          <tr>
+                              <th scope="col">Name</th>
+                              
+                              
+                              
+                              <th scope="col"> Date</th>
+                              <th scope="col">View</th>
+                              <th scope="col">Update</th>
+                              <th scope="col">Delete</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for todo in todos %}
+                          <tr>
+                              <td class="text-capitalize">{{todo.name}}</td>
+                              
+                              
+                              
+                              <td>{{todo.date|time:"h:i a"}}</td>
+                              <td>
+                                  <a role="button" class="btn btn-sm btn-outline-success"
+                                      href="{% url 'todo_detail' todo.pk %}">View</a>
+                              </td>
+                              <td>
+                                <a role="button" class="btn btn-sm btn-outline-success"
+                                    href="{% url 'todo_update' todo.pk %}">update</a>
+                            </td>
+                              <td>
+                                  <a role="button" class="btn btn-sm btn-outline-danger" href="{% url 'delete' todo.pk %}">Delete</a>
+                                  <!-- <button class="btn btn-sm btn-outline-danger">Delete</button></td> -->
+                          </tr>
+                          {% empty %}
+                        <span class="text-center">No todos to show</span>
+
+                          
+                          {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+  
+  
+{% endblock %}
